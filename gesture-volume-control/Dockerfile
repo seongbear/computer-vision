@@ -1,28 +1,28 @@
-# Use a slim Python image
+# Use a slim Python 3.10 image
 FROM python:3.10-slim
 
-# Install system dependencies for MediaPipe and OpenCV
+# Install system dependencies required by OpenCV to render video
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgl1-mesa-glx \
+    libgl1 \
+    libglx-mesa0 \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# Install uv using the official binary explorer
+# Install the 'uv' package manager
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Set work directory
+# Set working directory
 WORKDIR /app
 
-# Copy lockfiles first to leverage Docker layer caching
+# Copy dependency files first (for Docker caching)
 COPY pyproject.toml uv.lock ./
 
-# Install dependencies into the system environment
-# --frozen ensures uv uses the exact versions in uv.lock
+# Install dependencies strictly from the lockfile
 RUN uv sync --frozen --no-install-project --no-dev
 
-# Copy the source code
-COPY src/ ./src/
+# Copy your source code
+COPY main.py .
+COPY app/ ./app/
 
-# Run the application
-# We use 'uv run' to ensure the environment is correctly loaded
-CMD ["uv", "run", "src/VolumeControl.py"]
+# Run the script
+CMD ["uv", "run", "main.py"]

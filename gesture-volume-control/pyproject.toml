@@ -1,13 +1,13 @@
 [project]
 name = "gesture-volume-control"
 version = "0.1.0"
-description = "Add your description here"
+description = "AI Hand Gesture Volume Control"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 dependencies = [
-    "comtypes>=1.4.16",
-    "mediapipe>=0.10.33",
-    "numpy>=2.4.4",
-    "opencv-python>=4.13.0.92",
-    "pycaw>=20251023",
+    "opencv-python>=4.8.0",
+    "mediapipe==0.10.9",
+    "numpy>=1.24.0",
+    "pycaw>=20240101",
+    "comtypes>=1.2.0",
 ]
