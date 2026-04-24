@@ -28,15 +28,29 @@ python --version
 
 ---
 
-## ✅ Step 2 — Create virtual environment
+## ✅ Step 2 — Install uv (fast package manager)
 
 ```bash
-python -m venv venv
+pip install uv
+```
+
+Verify:
+
+```bash 
+uv --version
 ```
 
 ---
 
-## ✅ Step 3 — Activate environment
+## ✅ Step 3 — Create virtual environment
+
+```bash
+uv venv
+```
+
+---
+
+## ✅ Step 4 — Activate environment
 
 ### 🪟 Windows (PowerShell)
 
@@ -52,7 +66,7 @@ source venv/bin/activate
 
 ---
 
-## ✅ Step 4 — Install dependencies
+## ✅ Step 5 — Install dependencies
 
 Create `requirements.txt`:
 
@@ -67,7 +81,7 @@ comtypes
 Then install:
 
 ```bash
-pip install -r requirements.txt
+uv add -r requirements.txt
 ```
 
 ---
@@ -96,7 +110,7 @@ True
 # ▶️ 2. Run the Project
 
 ```bash
-python -m app.main
+uv run main.py
 ```
 
 ---
@@ -119,51 +133,6 @@ Press **ESC** to exit.
 | -------------- | --------- | ----- | ----- |
 | Webcam         | ✅         | ✅     | ✅     |
 | Volume Control | ✅ (pycaw) | ❌     | ⚠️    |
-
----
-
-# ❗ Common Issues & Fixes
-
-## 1. `No module named app`
-
-```bash
-python -m app.main
-```
-
----
-
-## 2. `mp.solutions not found`
-
-Fix:
-
-```bash
-pip install mediapipe==0.10.9
-```
-
----
-
-## 3. Camera not opening
-
-Change:
-
-```python
-cv2.VideoCapture(1)
-```
-
----
-
-## 4. Volume not working
-
-Install:
-
-```bash
-pip install pycaw comtypes
-```
-
-Ensure:
-
-* Windows OS
-* Run terminal as Administrator (if needed)
 
 ---
 
