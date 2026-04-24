@@ -1,0 +1,25 @@
+services:
+  gesture-volume:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: virtual_drag_drop 
+    
+    # Pass the webcam to the container.
+    devices:
+      - "/dev/video0:/dev/video0"
+    
+    environment:
+      # --- DISPLAY CONFIGURATION ---
+      # For Linux users: Uncomment the line below
+      # - DISPLAY=$DISPLAY
+      
+      # For Windows/WSL2 users running VcXsrv/Xming:
+      - DISPLAY=host.docker.internal:0.0
+      
+      # Disable MIT-SHM to prevent OpenCV GUI crashes in Docker
+      - QT_X11_NO_MITSHM=1 
+
+    # Shared volumes for X11 Display (Primarily for Linux host)
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
