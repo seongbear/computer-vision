@@ -21,9 +21,10 @@ The application captures video from your webcam and displays virtual objects tha
 
 - Python 3.10 or higher
 - Webcam
+- `uv` package manager installed
 - For Docker: Docker and Docker Compose
 
-### Option 1: Local Installation
+### Local Installation with `uv`
 
 1. Clone the repository:
    ```bash
@@ -33,19 +34,30 @@ The application captures video from your webcam and displays virtual objects tha
 
 2. Create a virtual environment:
    ```bash
-   python -m venv .venv
-   # On Windows:
-   .venv\Scripts\activate
-   # On Linux/macOS:
+   uv venv
+   ```
+
+3. Activate the virtual environment:
+   ```powershell
+   .\.venv\Scripts\Activate.ps1
+   ```
+
+   On Windows Command Prompt:
+   ```cmd
+   .venv\Scripts\activate.bat
+   ```
+
+   On macOS / Linux:
+   ```bash
    source .venv/bin/activate
    ```
 
-3. Install dependencies:
+4. Install dependencies:
    ```bash
-   pip install -r requirements.txt
+   uv add -r requirements.txt
    ```
 
-### Option 2: Docker Installation
+### Docker Installation (Optional)
 
 1. Clone the repository:
    ```bash
@@ -53,11 +65,12 @@ The application captures video from your webcam and displays virtual objects tha
    cd virtual-drag-drop
    ```
 
-2. For Linux users, ensure X11 forwarding is set up.
+2. Configure display forwarding:
 
-3. For Windows/WSL2 users, install VcXsrv or Xming and set DISPLAY accordingly.
+- Linux: enable X11 forwarding
+- Windows/WSL2: install VcXsrv or Xming and set `DISPLAY`
 
-4. Run with Docker Compose:
+3. Run with Docker Compose:
    ```bash
    docker-compose up --build
    ```
@@ -67,7 +80,7 @@ The application captures video from your webcam and displays virtual objects tha
 ### Running Locally
 
 ```bash
-python main.py
+uv run python main.py
 ```
 
 ### Running with Docker
@@ -80,7 +93,7 @@ docker-compose up
 
 - **Pinch Gesture**: Bring thumb and index finger close together to grab and drag objects
 - **Release**: Separate thumb and index finger to release the object
-- **Quit**: Press 'q' to exit the application
+- **Quit**: Press `q`
 
 ## Project Structure
 

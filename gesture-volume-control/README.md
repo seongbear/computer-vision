@@ -1,104 +1,59 @@
 # Gesture Volume Control (Hand Tracking)
 
-A real-time computer vision project that controls system volume using hand gestures (thumb + index finger distance). Built with OpenCV, MediaPipe, and Python.
+A real-time computer vision app that adjusts Windows system volume using thumb and index finger gestures. It uses OpenCV for video capture, MediaPipe for hand landmark detection, and `pycaw` to control audio volume.
 
 ---
 
-# 🚀 Features
+## 🚀 Features
 
-* ✋ Hand tracking using MediaPipe
-* 🎯 Distance-based gesture control
-* 🔊 Real-time system volume adjustment (Windows)
-* 📊 Visual volume bar + percentage
-* 🧱 Modular architecture (clean code structure)
-
-# ⚙️ 1. Setup Virtual Environment
-
-## ✅ Step 1 — Check Python version
-
-```bash
-python --version
-```
-
-👉 MUST be:
-
-* Python **3.10 or 3.11**
-
-⚠️ MediaPipe does NOT work properly with Python 3.12+
+* ✋ Real-time hand tracking with MediaPipe
+* 🎚️ Volume control by thumb-index distance
+* 🔊 System volume adjustment on Windows
+* 📊 On-screen volume bar and percentage indicator
+* 🧩 Clean modular Python structure
 
 ---
 
-## ✅ Step 2 — Install uv (fast package manager)
+## 🧩 Prerequisites
 
-```bash
-pip install uv
-```
+* Python 3.10 or 3.11
+* Windows for full volume control support
+* Webcam or built-in camera
 
-Verify:
-
-```bash 
-uv --version
-```
+> MediaPipe may not work properly on Python 3.12 or later.
 
 ---
 
-## ✅ Step 3 — Create virtual environment
+## ⚙️ Setup
+
+### 1. Create a virtual environment
+
+```powershell
+python -m venv .venv
+```
+
+### 2. Activate the virtual environment
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+> If you use Command Prompt, run `.
+venv\Scripts\activate.bat` instead.
+
+### 3. Install dependencies
 
 ```bash
-uv venv
+pip install -r requirements.txt
 ```
 
----
-
-## ✅ Step 4 — Activate environment
-
-### 🪟 Windows (PowerShell)
-
-```bash
-venv\Scripts\activate
-```
-
-### 🐧 macOS / Linux
-
-```bash
-source venv/bin/activate
-```
-
----
-
-## ✅ Step 5 — Install dependencies
-
-Create `requirements.txt`:
-
-```
-opencv-python
-mediapipe==0.10.9
-numpy
-pycaw
-comtypes
-```
-
-Then install:
-
-```bash
-uv add -r requirements.txt
-```
-
----
-
-# 🧪 Verify MediaPipe (IMPORTANT)
-
-```bash
-python
-```
+### 4. Verify MediaPipe installation
 
 ```python
-import mediapipe as mp
-print(mp.__version__)
-print("solutions" in dir(mp))
+python -c "import mediapipe as mp; print(mp.__version__); print('solutions' in dir(mp))"
 ```
 
-Expected:
+Expected output:
 
 ```
 0.10.9
@@ -107,41 +62,63 @@ True
 
 ---
 
-# ▶️ 2. Run the Project
+## ▶️ Run the App
 
 ```bash
-uv run main.py
+python main.py
 ```
 
 ---
 
-# 🎥 Controls
+## 🎮 Controls
 
 | Gesture           | Action                |
 | ----------------- | --------------------- |
-| Fingers close     | Volume ↓              |
-| Fingers far apart | Volume ↑              |
-| Very close        | Click effect (visual) |
+| Fingers close     | Decrease volume       |
+| Fingers far apart | Increase volume       |
+| Very close        | Click-style visual    |
 
 Press **ESC** to exit.
 
 ---
 
-# 🪟 Platform Support
+## 🪟 Platform Support
 
-| Feature        | Windows   | macOS | Linux |
-| -------------- | --------- | ----- | ----- |
-| Webcam         | ✅         | ✅     | ✅     |
-| Volume Control | ✅ (pycaw) | ❌     | ⚠️    |
+| Feature        | Windows | macOS | Linux |
+| -------------- | ------- | ----- | ----- |
+| Webcam         | ✅      | ✅    | ✅    |
+| Volume Control | ✅      | ❌    | ⚠️    |
+
+---
+
+## 🧠 How It Works
+
+1. Capture webcam frames with OpenCV
+2. Detect 21 hand landmarks using MediaPipe
+3. Track thumb tip (landmark 4) and index tip (landmark 8)
+4. Compute the distance between the two fingertips
+5. Map distance to system volume and update audio level
 
 ---
 
-# 🧠 How It Works
+## 📁 Project Structure
 
-1. Detect 21 hand landmarks
-2. Extract thumb (4) and index finger (8)
-3. Compute distance
-4. Map distance → volume
-5. Update system volume
+* `main.py` — app entry point and main loop
+* `requirements.txt` — Python dependency list
+* `README.md` — project documentation
 
 ---
+
+## 💡 Notes
+
+* Works best in good lighting with a clear hand view
+* Keep your hand centered and stable for smoother tracking
+* On Windows, `pycaw` is required for volume control
+
+---
+
+## 🚀 Troubleshooting
+
+* If the webcam does not start, verify your camera is available and not used by another app
+* If MediaPipe fails, confirm Python version is 3.10 or 3.11
+* If volume control is not working, ensure you are on Windows and `pycaw` is installed
