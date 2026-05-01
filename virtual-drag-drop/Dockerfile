@@ -1,5 +1,5 @@
-# Use a slim Python 3.13 image 
-FROM python:3.13-slim
+# Use a slim Python 3.11 image 
+FROM python:3.11-slim
 
 # Install system dependencies 
 RUN apt-get update && apt-get install -y --no-install-recommends \
