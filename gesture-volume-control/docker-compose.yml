@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: virtual_drag_drop 
+    container_name: gesture_volume_control
     
     # Pass the webcam to the container.
     devices:
