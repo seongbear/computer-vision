@@ -1,28 +1,28 @@
-FROM python:3.11-slim
+FROM python:3.10-slim
 
-# Install system dependencies
+# Install System Dependencies (Need these for OpenCV and dlib)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1 \
     libglx-mesa0 \
     libglib2.0-0 \
     cmake \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Install the 'uv' package manager
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uv
+# Install 'uv' EXACTLY HERE (Must be before you try to run it!)
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy the dependency files first (Leverages Docker caching)
-COPY requirements.txt ./
+# Copy your requirements file
+COPY requirements.txt .
 
-# Install Python dependencies using 'uv'
-RUN uv pip install --no-cache-dir -r requirements.txt
+# Install dependencies (Now Docker knows what 'uv' is!)
+RUN uv pip install --system --no-cache -r requirements.txt
 
-# Copy source code to the container
-COPY main.py .
-COPY app/ ./app/
+# Copy the rest of your code
+COPY . .
 
-# Run the script
-CMD ["uv", "run", "main.py"]
+# Run the app
+CMD ["python", "app/main.py"]

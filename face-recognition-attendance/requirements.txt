@@ -1,5 +1,5 @@
-opencv-python 
-cmake
-dlib 
-face_recognition
+opencv-python
 numpy
+mediapipe==0.10.9
+scikit-learn
+cvzone
