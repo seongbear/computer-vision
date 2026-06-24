@@ -5,11 +5,11 @@ class FPS:
         self.prev_time = 0 
         self.curr_time = 0 
         
-        def update(self):
-            """
-            Call this every frame 
-            """
-            self.curr_time = time.time()
-            fps = 1 / (self.curr_time - self.prev_time)
-            self.prev_time = self.curr_time 
-            return fps
+    def update(self):
+        """
+        Call this every frame 
+        """
+        self.curr_time = time.time()
+        fps = 1 / (self.curr_time - self.prev_time)
+        self.prev_time = self.curr_time 
+        return fps
