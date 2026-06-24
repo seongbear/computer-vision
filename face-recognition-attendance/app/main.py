@@ -1,22 +1,12 @@
 import cv2
+from app.face.detector import FaceDetector
+from app.face.encoder import FaceEncoder
+from app.face.recognizer import FaceRecognizer
+from app.liveliness.motion_detector import MotionDetector
 
+# Initialize modules 
+detector = FaceDetector()
+encoder = FaceEncoder()
+recognizer = FaceRecognizer() 
+motion_detector = MotionDetector()
 
-
-cap = cv2.VideoCapture(0)
-cap.set(3, 1280) # Set width
-cap.set(4, 720) # Set height
-
-while True:
-    success, img = cap.read()
-    if success:
-        cv2.imshow("Camera Test", img)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-    else:
-        print("Failed to access the camera.")
-    
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-cap.release()
-cv2.destroyAllWindows()
